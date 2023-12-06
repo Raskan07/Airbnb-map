@@ -3,6 +3,7 @@ import MyMap from "./Components/MyMap";
 import * as Location from 'expo-location';
 import { createContext, useEffect, useState } from "react";
 import { UseLocationContext } from "./Context/UseContext";
+import Header from "./Components/Header";
 
 
 export default function Page() {
@@ -26,7 +27,15 @@ export default function Page() {
 
   return (
     <UseLocationContext.Provider value={{location,setLocation}}>
-      <MyMap />
+      <View style={styles.container}>
+      <View style={{position:"absolute",zIndex:10,top:13,width:"80%",left:15}}>
+          <Header />
+      </View>
+      <View style={{position:"absolute",zIndex:10,top:30,width:"100%",left:15}}>
+
+      </View>
+       <MyMap />
+      </View>
     </UseLocationContext.Provider>
 
   );
@@ -36,4 +45,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  header:{}  
+  
 });

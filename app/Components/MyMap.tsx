@@ -8,8 +8,8 @@ const MyMap = () => {
   console.log(location?.coords)
 
   const mapRegion = {
-    latitude: location?.coords?.latitude || 0,
-    longitude: location?.coords?.longitude || 0,
+    latitude: location?.coords?.latitude ||  6.4705866,
+    longitude: location?.coords?.longitude || 79.9901606,
     latitudeDelta: 0.0522,
     longitudeDelta: 0.0445,
   };
