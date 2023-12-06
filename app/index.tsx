@@ -4,6 +4,7 @@ import * as Location from 'expo-location';
 import { createContext, useEffect, useState } from "react";
 import { UseLocationContext } from "./Context/UseContext";
 import Header from "./Components/Header";
+import PlaceList from "./Components/PlaceList";
 
 
 export default function Page() {
@@ -31,8 +32,8 @@ export default function Page() {
       <View style={{position:"absolute",zIndex:10,top:13,width:"80%",left:15}}>
           <Header />
       </View>
-      <View style={{position:"absolute",zIndex:10,top:30,width:"100%",left:15}}>
-
+      <View style={{position:"absolute",zIndex:10,top:70,width:"100%",left:15}}>
+        <PlaceList />
       </View>
        <MyMap />
       </View>
