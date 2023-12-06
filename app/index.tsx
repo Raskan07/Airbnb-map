@@ -1,34 +1,39 @@
 import { StyleSheet, Text, View } from "react-native";
+import MyMap from "./Components/MyMap";
+import * as Location from 'expo-location';
+import { createContext, useEffect, useState } from "react";
+import { UseLocationContext } from "./Context/UseContext";
+
 
 export default function Page() {
+  const [location, setLocation] = useState<any>(null);
+  const [errorMsg, setErrorMsg] = useState<any>(null);
+
+
+  useEffect(() => {
+    (async () => {
+      
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== 'granted') {
+        setErrorMsg('Permission to access location was denied');
+        return;
+      }
+
+      let location = await Location.getCurrentPositionAsync({});
+      setLocation(location);
+    })();
+  }, []);
+
   return (
-    <View style={styles.container}>
-      <View style={styles.main}>
-        <Text style={styles.title}>Hello World</Text>
-        <Text style={styles.subtitle}>This is the first page of your app.</Text>
-      </View>
-    </View>
+    <UseLocationContext.Provider value={{location,setLocation}}>
+      <MyMap />
+    </UseLocationContext.Provider>
+
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
-    padding: 24,
-  },
-  main: {
-    flex: 1,
-    justifyContent: "center",
-    maxWidth: 960,
-    marginHorizontal: "auto",
-  },
-  title: {
-    fontSize: 64,
-    fontWeight: "bold",
-  },
-  subtitle: {
-    fontSize: 36,
-    color: "#38434D",
   },
 });
