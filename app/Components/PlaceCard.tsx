@@ -1,14 +1,27 @@
 import { StyleSheet, Text, View,Image, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { EvilIcons,AntDesign } from '@expo/vector-icons'; 
+import { useBottomSheet } from '@gorhom/bottom-sheet';
+import { Link } from 'expo-router';
+import MyModal from './MyModal';
 
 const PlaceCard = ({place}:any) => {
+    const date = new Date()
   return (
-    <TouchableOpacity style={styles.container}>
+    <Link href={'/Components/MyModal'} asChild>
+    <TouchableOpacity style={styles.container} >
+        { place?.photos ? 
+        
+        <Image 
+        source={{uri:"https://maps.googleapis.com/maps/api/place/photo"+"?maxwidth=400"+"&photo_reference="+place.photos?.[0]?.photo_reference+"&key=AIzaSyDWGpUaorhi5tjnMlrjVoGme6KSiTOMdDk"}} 
+        style={styles.img}
+        /> 
+        
+        :
      <Image 
      source={{uri:"https://wallpapercave.com/wp/wp4371959.jpg"}}
      style={styles.img}
-     />
+     />  }
      <View style={styles.subContainer}>
         <Text style={{
             fontSize:17,
@@ -23,7 +36,7 @@ const PlaceCard = ({place}:any) => {
         <View style={{flexDirection:"row",justifyContent:"space-around",marginLeft:-5,marginTop:15,alignItems:"center"}}>
             <View style={{flexDirection:"row"}}>
             <AntDesign name="calendar" size={15} color="gray" />
-            <Text style={{fontSize:12,paddingLeft:5,color:"gray"}}>15.6.2019</Text>
+            <Text style={{fontSize:12,paddingLeft:5,color:"gray"}}>{date.toLocaleDateString()}</Text>
             </View>
             <View style={[{flexDirection:"row",padding:5,borderRadius:15},place?.opening_hours?.open_now ? {backgroundColor:"#e4feeb"} :{backgroundColor:"#fce4e5"}]}>
             <AntDesign name="clockcircleo" size={15} color={place?.opening_hours?.open_now  ?"#00bc5a" : "red"} />
@@ -34,6 +47,7 @@ const PlaceCard = ({place}:any) => {
         </View>
      </View>
     </TouchableOpacity>
+    </Link>
   )
 }
 
@@ -51,7 +65,8 @@ const styles = StyleSheet.create({
     },
     img:{
         width:"35%",
-        height:120
+        height:"100%",
+        backgroundColor:"#00bc5a"
     },
     subContainer:{
         width:"60%",

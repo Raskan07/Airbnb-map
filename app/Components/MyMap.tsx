@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from 'react-native'
-import React, { useContext, useState } from 'react'
+import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react'
 import MapView,{Marker, PROVIDER_GOOGLE} from 'react-native-maps'
 import { UseLocationContext } from '../Context/UseContext'
 import PlaceMarker from './PlaceMarker'
@@ -16,10 +16,18 @@ const MyMap = ({placeList}:any) => {
     longitudeDelta: 0.0445,
   };
 
-  const [slectedPlace,setSelectPlace] = useState(true)
   const [choosedPlace,setChoosedPlace] = useState([])
 
   console.log("ch",choosedPlace)
+
+  const [isSlected,setIsSelected] = useState<any>(null)
+
+  useEffect(()=>{
+    if(choosedPlace.length === 0){
+      setIsSelected(false)
+    }
+    return ;
+  },[choosedPlace])
 
     
   return (
@@ -40,6 +48,7 @@ const MyMap = ({placeList}:any) => {
           title='Where am i'
           description='my Place'
           pinColor='#4165f4'
+          
           >
             <View style={{}}>
               <Text style={{fontWeight:"700",color:"#000",padding:5,backgroundColor:"#FFF",borderRadius:5,borderWidth:1,borderColor:"gray"}}>Home</Text>
@@ -58,12 +67,18 @@ const MyMap = ({placeList}:any) => {
       }
     </MapView>
     {
-      slectedPlace && <PlaceCardList place={choosedPlace} />
+      choosedPlace.length === 0 ? null : <PlaceCardList place={choosedPlace} />
     }
+
+        
     </View>
   )
 }
 
 export default MyMap
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  contentContainer:{
+
+  }
+})
