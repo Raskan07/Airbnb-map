@@ -3,10 +3,11 @@ import React from 'react'
 import { Marker } from 'react-native-maps'
 
 
-const PlaceMarker = ({place}:any) => {
+const PlaceMarker = ({place,setPlace}:any) => {
   return (
    <Marker 
    title={place.name}
+   onPress={() => setPlace(place)}
    coordinate={{
     latitude:place?.geometry?.location?.lat,
     longitude:place?.geometry?.location?.lng,

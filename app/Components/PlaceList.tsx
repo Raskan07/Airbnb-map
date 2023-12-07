@@ -124,7 +124,7 @@ const PlaceList = ({setCategory}:any) => {
                     padding:10,
                     borderRadius:15,
                     textAlign:"center",
-                    backgroundColor:"#8eade6",
+                    backgroundColor:"#00bc5a",
                     fontSize:16,
                     fontWeight:"600",
                     elevation:1.7,

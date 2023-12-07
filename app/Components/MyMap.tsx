@@ -1,12 +1,13 @@
 import { StyleSheet, Text, View } from 'react-native'
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import MapView,{Marker, PROVIDER_GOOGLE} from 'react-native-maps'
 import { UseLocationContext } from '../Context/UseContext'
 import PlaceMarker from './PlaceMarker'
+import PlaceCardList from './PlaceCardList'
 
 const MyMap = ({placeList}:any) => {
   const {location} =  useContext(UseLocationContext)
-  console.log(location?.coords)
+  console.log(location)
 
   const mapRegion = {
     latitude: location?.coords?.latitude ||  6.4705866,
@@ -15,14 +16,21 @@ const MyMap = ({placeList}:any) => {
     longitudeDelta: 0.0445,
   };
 
+  const [slectedPlace,setSelectPlace] = useState(true)
+  const [choosedPlace,setChoosedPlace] = useState([])
+
+  console.log("ch",choosedPlace)
+
     
   return (
+    <View>
     <MapView 
         style={{width:"100%",height:"100%"}}
         initialRegion={mapRegion}
         provider={PROVIDER_GOOGLE}
         showsMyLocationButton={true}
         showsUserLocation={true}
+        mapType="satellite"
 
     >
       {
@@ -44,11 +52,15 @@ const MyMap = ({placeList}:any) => {
       {
         location && (
           placeList.map((item:any,index:any) => (
-            <PlaceMarker place={item} key={index} />
+            <PlaceMarker place={item} key={index} setPlace={(value:any) => setChoosedPlace(value)}  />
           ))
         )
       }
     </MapView>
+    {
+      slectedPlace && <PlaceCardList place={choosedPlace} />
+    }
+    </View>
   )
 }
 
