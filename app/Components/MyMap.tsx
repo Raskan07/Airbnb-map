@@ -2,8 +2,9 @@ import { StyleSheet, Text, View } from 'react-native'
 import React, { useContext } from 'react'
 import MapView,{Marker, PROVIDER_GOOGLE} from 'react-native-maps'
 import { UseLocationContext } from '../Context/UseContext'
+import PlaceMarker from './PlaceMarker'
 
-const MyMap = () => {
+const MyMap = ({placeList}:any) => {
   const {location} =  useContext(UseLocationContext)
   console.log(location?.coords)
 
@@ -30,12 +31,21 @@ const MyMap = () => {
           coordinate={mapRegion}
           title='Where am i'
           description='my Place'
+          pinColor='#4165f4'
           >
             <View style={{}}>
               <Text style={{fontWeight:"700",color:"#000",padding:5,backgroundColor:"#FFF",borderRadius:5,borderWidth:1,borderColor:"gray"}}>Home</Text>
             </View>
 
           </Marker>
+        )
+      }
+
+      {
+        location && (
+          placeList.map((item:any,index:any) => (
+            <PlaceMarker place={item} key={index} />
+          ))
         )
       }
     </MapView>

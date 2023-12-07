@@ -5,11 +5,35 @@ import { createContext, useEffect, useState } from "react";
 import { UseLocationContext } from "./Context/UseContext";
 import Header from "./Components/Header";
 import PlaceList from "./Components/PlaceList";
+import GlobalApi from "./Server/GlobalApi";
 
 
 export default function Page() {
   const [location, setLocation] = useState<any>(null);
   const [errorMsg, setErrorMsg] = useState<any>(null);
+  const [placeList,setPlaceList] = useState<any>([])
+
+
+
+  const latitude = location?.coords?.latitude;
+  const longitude = location?.coords?.longitude;
+
+  
+
+
+
+  const NerabyPlace = (type:any) => {
+    try {
+      GlobalApi.nearbyPlace(latitude,longitude,type).then(res => {
+        setPlaceList(res.data.results)
+      })
+      
+    } catch (error) {
+     console.log(error) 
+    }
+  }
+
+
 
 
   useEffect(() => {
@@ -26,6 +50,11 @@ export default function Page() {
     })();
   }, []);
 
+
+  useEffect(() => {
+    NerabyPlace("restaurant")
+  },[location])
+
   return (
     <UseLocationContext.Provider value={{location,setLocation}}>
       <View style={styles.container}>
@@ -33,9 +62,9 @@ export default function Page() {
           <Header />
       </View>
       <View style={{position:"absolute",zIndex:10,top:70,width:"100%",left:15}}>
-        <PlaceList />
+        <PlaceList setCategory={(value:any) => NerabyPlace(value)} />
       </View>
-       <MyMap />
+       <MyMap placeList={placeList} />
       </View>
     </UseLocationContext.Provider>
 

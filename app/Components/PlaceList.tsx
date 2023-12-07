@@ -1,7 +1,7 @@
 import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 
-const PlaceList = () => {
+const PlaceList = ({setCategory}:any) => {
     const data = [
         {
             shopName:"store",
@@ -105,6 +105,7 @@ const PlaceList = () => {
     const onPlaceDetails = (item:any) => {
         try {
             console.log(item.value)
+            setCategory(item.value)
             
         } catch (error) {
             console.log(error)
