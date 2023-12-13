@@ -8,7 +8,7 @@ import MyModal from './MyModal';
 const PlaceCard = ({place}:any) => {
     const date = new Date()
   return (
-    <Link href={'/Components/MyModal'} asChild>
+    <Link href={{pathname:'/Components/MyModal',params:{place}}} asChild>
     <TouchableOpacity style={styles.container} >
         { place?.photos ? 
         
