@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "bnbMap",
+    "name": "bnb",
     "slug": "bnbMap",
     "scheme": "bnbMap-scheme",
     "version": "1.0.0",
@@ -16,13 +16,26 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.bnb.mapsdemo",
+      "ios": {
+        "bundleIdentifier": "com.example.mapsdemo",
+      "config": {
+        "googleMapsApiKey": "AIzaSyALeWJ7fL9Cu7DCm9mxmMJcIVGELjohwBc"
+       }
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
+      "package": "com.bnb.mapsdemo",
+      "config": {
+             "googleMaps": {
+               "apiKey": "AIzaSyALeWJ7fL9Cu7DCm9mxmMJcIVGELjohwBc"
+            }
+             },
       "permissions": [
         "android.permission.ACCESS_COARSE_LOCATION",
         "android.permission.ACCESS_FINE_LOCATION",
