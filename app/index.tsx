@@ -6,6 +6,7 @@ import { UseLocationContext } from "./Context/UseContext";
 import Header from "./Components/Header";
 import PlaceList from "./Components/PlaceList";
 import GlobalApi from "./Server/GlobalApi";
+import LocationError from "./Components/LocationError";
 
 
 export default function Page() {
@@ -54,6 +55,12 @@ export default function Page() {
   useEffect(() => {
     NerabyPlace("restaurant")
   },[location])
+
+  if(!location){
+    return <LocationError  />
+  }
+
+
 
   return (
     <UseLocationContext.Provider value={{location,setLocation}}>

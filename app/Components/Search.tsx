@@ -1,15 +1,29 @@
-import { StyleSheet, Text, View,TouchableOpacity } from 'react-native'
-import React from 'react'
-import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
-import { Link } from 'expo-router';
-import { AntDesign } from '@expo/vector-icons'; 
+import { StyleSheet, Text, View } from 'react-native'
+import React, { useState } from 'react'
+import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete'
+import { router } from 'expo-router'
 
-const Header = () => {
+
+
+const Search = () => {
+  const [searchLocation,setSearchLocation] = useState<any>()
+  console.log(searchLocation)
+
+
+  const LocationLAT = (details:any) => {
+    try {
+      setSearchLocation(details)
+
+      
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+
   return (
-    <Link href={"/Components/Search"}  asChild>
-    <TouchableOpacity 
-    style={styles.container}>
-        {/* <GooglePlacesAutocomplete 
+    <View>
+     <GooglePlacesAutocomplete 
             placeholder='Search'
             query={{
                 key:"AIzaSyALeWJ7fL9Cu7DCm9mxmMJcIVGELjohwBc",
@@ -18,10 +32,14 @@ const Header = () => {
               fetchDetails={true}
               enablePoweredByContainer={false}
               keepResultsAfterBlur={true}
+              onPress={(data, details = null) => {
+                LocationLAT(details)
+              }}
               styles={{
                   container: {
                       flex: 0,
-                      borderRadius:15
+                      borderRadius:15,
+                      padding:15
                     },
                     textInputContainer: {
                       width: '100%',
@@ -52,24 +70,11 @@ const Header = () => {
 
 
         />
-         */}
-         <AntDesign name="search1" size={24} color="#00000050" style={{paddingLeft:20,paddingRight:10}} />
-         <Text style={{marginRight:120,fontSize:16,color:"#00000050",fontWeight:"400"}}>Search</Text>
-    </TouchableOpacity>
-    </Link>
+        
+    </View>
   )
 }
 
-export default Header
+export default Search
 
-const styles = StyleSheet.create({
-    container :{
-        width:"100%",
-        borderRadius:15,
-        alignItems:"center",
-        backgroundColor:"#FFF",
-        height:38,
-        flexDirection:"row"
-    }
-    
-})
+const styles = StyleSheet.create({})
